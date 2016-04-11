@@ -15,8 +15,8 @@ var markerFlag = false; muted = false; markersSet = false;
 
 /*
 BOOTSTRAP BOOTSTRAP
+http://goo.gl/forms/o9TW6tSlNn
 */
-
 
 
 
@@ -204,6 +204,7 @@ var main = function(){
     });
 
     $('.stop').click(function(event){
+        strings = tabData.split("\n");
         clearInterval(interval);
         currentMarker[0].value=0;
         console.log("stopped. reset to:" + currentMarker[0].value);
@@ -270,6 +271,7 @@ var main = function(){
     });
 
     $('.playMarker').click(function(){
+        strings = tabData.split("\n");
         if(markersSet){
             markerFlag = true;
             currentMarker[0].value = startMarker[0].value;
@@ -300,6 +302,7 @@ var main = function(){
     });
 
     $('.resetMarker').click(function(){
+       strings = tabData.split("\n");
        hideMarkers();
        resetMarkers();
        if(typeof interval !== "undefined"){

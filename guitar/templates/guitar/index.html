@@ -15,11 +15,17 @@
   <section class="light-buttons fade-down">
   <div class="right">
     <h1 class="dark-header">Guitar App</h1>
-    <a href="{% url 'guitar:tabinput' %}" class="button btn-blue clearfix"><span>Blue Button</span>
+    <!--<a href="{% url 'guitar:tab' %}" class="button btn-blue clearfix disabled"><span>Blue Button</span>-->
+    <!--<div class="icon">-->
+      <!--<div class="arrow"></div>-->
+    <!--</div>-->
+    <!--</a> -->
+    <a href="{% url 'guitar:tabinput' %}" class="button btn-blue clearfix"><span>Enter Tab</span>
     <div class="icon">
       <div class="arrow"></div>
     </div>
-    </a> <a href="{% url 'guitar:tab' %}" class="button btn-pink clearfix"><span>Enter Tab</span>
+    </a>
+    <a href="#" class="button btn-green clearfix"><span>Enter Bass Tab</span>
     <div class="icon">
       <div class="arrow"></div>
     </div>
@@ -29,23 +35,27 @@
   <section class="dark-buttons">
   <div class="left">
     <h1 class="light-header">Chord library</h1>
-    <a href="#" class="button btn-blue clearfix"><span>Blue Button</span>
+    <!--<a href="#" class="button btn-blue clearfix"><span>Blue Button</span>-->
+    <!--<div class="icon">-->
+      <!--<div class="arrow"></div>-->
+    <!--</div>-->
+    <!--</a> -->
+    <a href="{% url 'guitar:chords' %}" class="button btn-pink clearfix"><span>Guitar Library</span>
     <div class="icon">
       <div class="arrow"></div>
     </div>
-    </a> <a href="{% url 'guitar:chords' %}" class="button btn-pink clearfix"><span>Guitar Library</span>
+    </a>
+    <a href="#" class="button btn-green clearfix"><span>Bass Library</span>
     <div class="icon">
       <div class="arrow"></div>
     </div>
-    </a> <a href="#" class="button btn-orange clearfix"><span>Bass Library</span>
-    <div class="icon">
-      <div class="arrow"></div>
-    </div>
-    </a> <a href="#" class="button btn-green clearfix"><span>Green Button</span>
-    <div class="icon">
-      <div class="arrow"></div>
-    </div>
-    </a></div> </section>
+    </a>
+    <!--<a href="#" class="button btn-green clearfix"><span>Green Button</span>-->
+    <!--<div class="icon">-->
+      <!--<div class="arrow"></div>-->
+    <!--</div>-->
+    <!--</a>-->
+  </div> </section>
 </section>
 </body>
 </html>
