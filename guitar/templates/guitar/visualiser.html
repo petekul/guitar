@@ -1,0 +1,210 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Guitar App - {{form.songname}}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'guitar/css/appstyle.css' %}" />
+    <script src="{% static 'guitar/guitarApp.js' %}"></script>
+
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'guitar:index' %}">🎸Visualiser</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        {% if not form.songname == "" %}
+        <li class="active"><a href="#">{{form.songname}}</a></li>
+        {% else %}
+        <li class="active"><a href="#">Tab</a></li>
+        {% endif %}
+        <li><label id="vollabel" for="volamount">Volume:</label><input type="text" id="volamount" readonly style="border:0; background:transparent; color:white; font-weight:bold;f"></li>
+        <li> <div class="volslide" id="volslider"></div></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" class="contact-us" data-toggle="modal" data-target=".bs-example-modal-lg2"  data-placement="left" title="Help"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+        <li><a href="{% url 'guitar:chords' %}"><span class="glyphicon glyphicon-log-in"></span> Chord Library</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div id="line"></div>
+<!--characters are 6.5px apart-->
+<div id="sline"></div>
+<div id="eline"></div>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <form action="">
+      <fieldset class="tab">
+
+        <div class="container">
+          <div class="slide pull-right" id="bpmslider"></div>
+          <input class="pull-right" type="text" id="bpmamount" readonly style="border:0; background:#eee; color:#f6931f; font-weight:bold;">
+          <label class="pull-right" for="bpmamount">BPM:</label>
+        </div>
+
+
+        <div class="container text-left">
+          <legend class="tablegend">  </legend>
+            <button class="play glyphicon glyphicon-play btn btn-primary" style="padding-left:30px; padding-right:30px;" type="button"></button>
+            <button class="pause glyphicon glyphicon-pause btn btn-secondary" style="margin-left:5px; margin-right:5px; padding-left:30px; padding-right:30px;" type="button" value="Pause"></button>
+            <button class="stop glyphicon glyphicon-stop btn btn-danger" style="padding-left:30px; padding-right:30px;" type="button" value="Stop"></button>
+
+            <button class="resetMarker glyphicon glyphicon-ban-circle btn btn-danger pull-right" style="padding-left:15px; padding-right:15px;" type="button"></button>
+            <button class="playMarker glyphicon glyphicon-repeat btn btn-warning pull-right" style="margin-left:5px; margin-right:5px; padding-left:30px; padding-right:30px;" type="button"></button>
+            <button class="setMarker glyphicon glyphicon-map-marker btn btn-success pull-right" style="padding-left:30px; padding-right:30px;" type="button"></button>
+        </div>
+          <br>
+        <textarea readonly name="tabdata" id="tabdata" rows="10" cols="50" wrap="off" > {{ form.tab }} </textarea>
+        <br>
+        <!--<input class="getsize" type="button" value="Get window size">-->
+        <!--<input class="mute" type="button" value="mute">-->
+      </fieldset>
+    </form>
+  </div>
+</div>
+
+<div class="jumbotron">
+    <div id = "fretboard">
+      <img id = "fretboardimg" src="{% static 'guitar/images/blankfretboard.png' %}">
+
+      <img id = "str1" src = "{% static 'guitar/images/reddot.png' %}">
+      <img id = "str2" src = "{% static 'guitar/images/reddot.png' %}">
+      <img id = "str3" src = "{% static 'guitar/images/reddot.png' %}">
+      <img id = "str4" src = "{% static 'guitar/images/reddot.png' %}">
+      <img id = "str5" src = "{% static 'guitar/images/reddot.png' %}">
+      <img id = "str6" src = "{% static 'guitar/images/reddot.png' %}">
+    </div>
+</div>
+
+
+  <div class="modal fade bs-example-modal-lg2" role="dialog" aria-hidden="true" data-keyboard="true" data-backdrop="static" tabindex="-1">
+    <a href="#" class="glyphicon glyphicon-remove cls-pop" data-dismiss="modal"></a>
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content pop-up pop-up-cnt">
+        <h3>Help🎸</h3>
+        <div class="clearfix">
+            <p>How to use:</p>
+            <div class="legend">
+
+              <p class="glyphicon glyphicon-play"> : Play the tab.</p><br>
+              <p class="glyphicon glyphicon-pause"> : Play the tab.</p><br>
+              <p class="glyphicon glyphicon-stop"> : Play the tab.</p>
+              <p class="glyphicon glyphicon-map-marker"> : Play the tab.</p>
+              <p class="glyphicon glyphicon-play"> : Play the tab.</p>
+
+              <p>Copy and Paste your favourite guitar tabs from sites such as <a href="https://www.ultimate-guitar.com/top/top100_tabs.htm">Ultimate Guitar</a> into the input box. It should look like:</p>
+            </div>
+
+            <div class="clearfix cnt-wrap">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 columns">
+                <textarea id="example" name="comme nts" placeholder="testTab">
+ [Verse]
+
+e|--3--2--3--2-|-3-----3---------|--------3--2--3--2-|-3-----3--------|
+B|--------3----|----3-----1--(1)-|----0---------3----|----3-----1-----|
+G|-----0-----0-|----0------------|-0---------0-----0-|----0-----------|
+D|--2----------|-----------------|--------2----------|----------------|
+A|-------------|-3---------------|-------------------|-3--------------|
+E|-------------|-----------------|-------------------|----------------|
+
+e|-----------3--2--3-|------2--3--------3-|----------------|----------|
+B|--(1)---0--------3-|---3-----3------3---|-----3--------1-|--3--0----|
+G|------0-------0----|------0-------0-----|---0-----3h4----|--0-----2-|
+D|-----------2-------|-2------------------|----------------|--0-------|
+A|-------------------|------------3-------|-3--------------|----------|
+E|-------------------|--------------------|---------3------|----------|
+
+e|----------------|--------------|--------------|--------------|
+B|----------------|---------0----|----0h1--3----|----1--0------|
+G|-----0-----0----|----0h2-------|-0--0---------|-0--------2---|
+D|--0-----4-------|-2----------2-|----2-------0-|------------0-|
+A|--------------2-|---------3----|--------------|--------------|
+E|-----------0----|--------------|---------3----|--------------|
+
+e|-----3--2--3-|------2--3--------3-|----------------|-----7--5----5-|
+B|-----------3-|---3-----3------3---|-----3--------1-|--3----------3-|
+G|--------0----|------0-------0-----|---0-----3h4----|--0------------|
+D|--4--2-------|-2------------------|----------------|--0-----0--0---|
+A|-------------|------------3-------|-3--------------|---------------|
+E|-------------|--------------------|---------3------|---------------|
+
+e|--7--5--3--2--3----|--------------|---------------|-----------------|
+B|-------------------|---------0----|----0--1--3----|---1--0----------|
+G|-------------------|-0--0h2--0----|-0--0----------|-0-------2-----2-|
+D|-----------------2-|------------2-|----2--------0-|---------0--0----|
+A|-------------------|---------3----|---------------|-----------------|
+E|--------------0----|--------------|----------3----|-----------------|
+
+
+[Chorus]
+
+e|--3h5--3--2--3----------|-3h5--3--2--3----------|
+B|-------------------3----|-3----------------3----|
+G|-------------------0----|---------------0-------|
+D|----------------2-------|------------2--------2-|
+A|------------------------|-----------------------|
+E|-------------0--------0-|-----------------------|
+
+e|--3h5--3--2--3--5--7--8|-10--7-----------------|
+B|--3--------------------|--------10--8--7-------|
+G|-----------------------|------------------7----|
+D|-----------------------|---------------0-----0-|
+A|-----------------------|-----------------------|
+E|-------------3---------|-----------------------|
+
+e|--(3)3h5--3--2--3----------|-(3)3h5--3--2--3----------|
+B|----------------------3----|----3----------------3----|
+G|----------------------0----|------------------0-------|
+D|-------------------2-------|---------------2--------2-|
+A|---------------------------|--------------------------|
+E|----------------0--------0-|--------------------------|
+
+e|--(3)3h5--3--2--3--5--7--8|-10--7-----------------|-------|
+B|----3---------------------|--------10--8--7-------|-------|
+G|--------------------------|------------------7----|-------|
+D|--------------------------|---------------0-------|--7h4--|
+A|--------------------------|-----------------------|-------|
+E|----------------3---------|-----------------------|-------|
+                </textarea>
+              </div>
+            </div>
+            <div>
+                <p>Make sure the tab has your selected tuning in front of each tab line so the app can detect which string a line belongs to.</p>
+                <p> e.g. if you are in standard tuning, each line should begin with either "e|-", "B|-" etc...</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+      <p class="footer-text">&copy; Pete Chitvicheankul. Supervised by Gyorgy Fazekas.</p>
+  </div>
+</body>
+</html>

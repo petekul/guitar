@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load staticfiles %}
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chord Library - F Chords</title>
+
+    <!-- Bootstrap Core CSS -->
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'guitar/css/bootstrap.min.css' %}" />-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'guitar/css/chordlibrary.css' %}" />
+
+    <!-- mandatory script includes for jtab -->
+    <script src="http://jtab.tardate.com/javascripts/jquery.js" type="text/javascript"></script>
+    <script src="http://jtab.tardate.com/javascripts/raphael.js" type="text/javascript"></script>
+    <script src="http://jtab.tardate.com/javascripts/jtab.js" type="text/javascript"></script>
+
+    <script src="{% static 'guitar/guitarlibrary.js' %}"></script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <span id = "title">Guitar Tab Visualiser</span>
+            <a href="#menu-toggle" class="btn glyphicon glyphicon-th-list pull-right" id="menu-toggle"></a>        </div>
+        </div>
+    </div>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="{% url 'guitar:chords' %}">
+                        Chord library
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="{% url 'guitar:chords' %}">Search</a>
+                </li>
+                <li>
+                    <a href="{% url 'guitar:cchords' %}">C Chords</a>
+                </li>
+                <li>
+                    <a href="{% url 'guitar:dchords' %}">D Chords</a>
+                </li>
+                <li>
+                    <a href="{% url 'guitar:echords' %}">E Chords</a>
+                </li>
+                <li>
+                    <a href="{% url 'guitar:fchords' %}">F Chords</a>
+                </li>
+                <li>
+                    <a href="{% url 'guitar:gchords' %}">G Chords</a>
+                </li>
+                <li>
+                    <a href="{% url 'guitar:achords' %}">A Chords</a>
+                </li>
+                <li>
+                    <a href="{% url 'guitar:bchords' %}">B Chords</a>
+                </li>
+                <li>
+                    <a href="{% url 'guitar:chordnames' %}">Chord name reference list</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>F Chords</h1>
+                        <p>A list of all F chords</p>
+                        <div id="row1"></div>
+                        <br>
+                        <div id="row2"></div>
+                        <br>
+                        <div id="row3"></div>
+                        <br>
+                        <div id="row4"></div>
+                        <br>
+                        <h2>F# Chords</h2>
+                        <div id="row5"></div>
+                        <br>
+                        <div id="row6"></div>
+                        <br>
+                        <div id="row7"></div>
+                        <br>
+                        <div id="row8"></div>
+                        <br>
+
+                    </div>
+                </div>
+
+                    <div class="row">
+                        <div class="span12">
+                            <div class = "chords"> </div>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'guitar/js/jquery.js' %}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+    <script type="text/javascript">
+        jtab.render($('#row1'),'F Fm F6 Fm6 F69 F7');
+        jtab.render($('#row2'),'Fm7 Fmaj7 F7b5 F7#5 Fm7b5 F7b9');
+        jtab.render($('#row3'),'F9 Fm9 Fmaj9 Fadd9 F13 Fsus2');
+        jtab.render($('#row4'),'Fsus4 Fdim Fdim7 Faug');
+
+        jtab.render($('#row5'),'F# F#m F#6 F#m6 F#69 F#7');
+        jtab.render($('#row6'),'F#m7 F#maj7 F#7b5 F#7#5 F#m7b5 F#7b9');
+        jtab.render($('#row7'),'F#9 F#m9 F#maj9 F#add9 F#13 F#sus2');
+        jtab.render($('#row8'),'F#sus4 F#dim F#dim7 F#aug');
+    </script>
+</body>
+
+</html>

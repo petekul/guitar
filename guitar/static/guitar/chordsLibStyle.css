@@ -1,0 +1,18 @@
+body {
+	background: grey url("images/fretboard-chart.jpg") no-repeat left bottom;
+}
+
+.tab{
+    background: grey url("images/blank-fretboard.gif") no-repeat;
+}
+
+.tabinput{
+    background: white;
+    border-style: solid;
+    border-width: medium;
+    margin:0 auto;
+    width: 500px;
+}
+.tablegend{
+    padding-bottom: 15px;
+}

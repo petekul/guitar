@@ -1,0 +1,283 @@
+body {
+    position: relative;
+    font-family: 'Open Sans', sans-serif;
+    color: #8a8b8b;
+    font-size: 16px;
+    line-height: 22px;
+    background-color: #303030;
+	background-size: cover;
+    font-weight: normal;
+}
+
+.jumbotron{
+    padding-bottom: 25px;
+    padding-top: 25px;
+}
+
+
+.navbar-nav>li {
+display: inline-block;
+float:none;
+}
+
+/* HELP STYLES */
+.modal{
+    background: rgba(31, 31, 31, 0.96)
+}
+.pop-up {
+    padding: 20px;
+    border-radius: 0;
+    box-shadow: none;
+    background: none;
+    border: none;
+}
+.cls-pop {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 30px;
+    line-height: 40px;
+    color: #ffffff;
+    font-weight: normal;
+    z-index: 999;
+}
+.cls-pop:hover {
+    color: #ff382e;
+    text-decoration: none;
+}
+.pop-up h3 {
+    font-size: 34px;
+    line-height: 40px;
+    margin: 0 0 60px 0;
+    padding: 0;
+    color: #ff382e;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    text-transform: uppercase;
+    position: relative;
+}
+.pop-up h3:before {
+    background-color: #ff382e;
+    bottom: -30px;
+    content: "";
+    display: block;
+    height: 1px;
+    position: absolute;
+    width: 300px;
+}
+.pop-up h3:before {
+    left: 50%;
+    margin-left: -150px;
+}
+.pop-up p {
+    margin: 10px 0;
+    padding: 0;
+    font-size: 15px;
+    line-height: 24px;
+    color: #dadada;
+}
+.pop-up-cnt {
+    text-align: center;
+}
+.pop-up-cnt i {
+    height: 40px;
+    width: 40px;
+    background-color: #ff3b30;
+    border-radius: 50%;
+    color: #ffffff;
+    line-height: 40px;
+    margin-bottom: 10px;
+}
+.pop-up-cnt h4 {
+    font-size: 22px;
+    line-height: 28px;
+    margin: 0;
+    padding: 0;
+    color: #ffffff;
+}
+.pop-up-cnt .cnt-wrap {
+    padding-top: 30px;
+}
+.features {
+    margin: 20px 0 0 0;
+    padding: 0 0 0 14px;
+}
+.features li {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 28px;
+    color: #dadada;
+    width: 33%;
+    float: left;
+}
+.legend{
+    text-align: justify;
+}
+/* HELP STYLES end*/
+
+
+
+#line{
+    position: absolute;
+    height:150px;
+    width:2px;
+    background:red;
+    top:12%;
+    left:77px;
+    z-index:100;
+}
+#sline{
+    position: absolute;
+    height:160px;
+    width:2px;
+    background:green;
+    top:12%;
+    left:77px;
+}
+#eline{
+    position: absolute;
+    height:160px;
+    width:2px;
+    background:green;
+    top:12%;
+    left:80px;
+}
+
+
+#fretboardimg{
+    width: 100%;
+    height:250px;
+}
+
+#fretboard{
+    height:auto;
+    max-width: 100%;
+    width: 100%;
+}
+
+#str1{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    top: 61%;
+    left: 1%;
+}
+
+#str2{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    top: 64.9%;
+    left: 1%;
+}
+#str3{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    top: 68.8%;
+    left: 1%;
+}
+
+#str4{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    top: 72.7%;
+    left: 1%;
+}
+#str5{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    top: 76.6%;
+    left: 1%;
+}
+
+#str6{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    top: 80.5%;
+    left: 1%;
+}
+
+/*Footer start here*/
+
+.footer {
+    text-align: center;
+
+    margin: 0;
+    background-color: none;
+  text-align: center;
+}
+.footer-text{
+	font-size: 12px;
+}
+footer a {
+    color: #8a8b8b;
+    text-decoration: underline;
+}
+footer a:hover {
+    text-decoration: none;
+    color: #8a8b8b;
+}
+/*Footer start here*/
+
+#example {
+    font-family: monospace;
+    background: none repeat scroll 0 0 #303030;
+    border: 1px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    height: 300px;
+    margin-bottom: 20px;
+    overflow: auto;
+    padding: 20px;
+    width: 100%;
+}
+
+
+#tabdata{
+    font-family: monospace;
+    width:100%;
+    height:150px;
+}
+
+#bpmslider{
+}
+
+
+#bpmamount{
+    width: 30px;
+}
+#vollabel{
+    font-size:8;
+}
+#volamount{
+    width: 30px;
+}
+
+.slide{
+    width:200px;
+    margin-left:5px;
+}
+.volslide{
+    width:120px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+
+
+
+
+
+
+

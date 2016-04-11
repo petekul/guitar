@@ -1,0 +1,77 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'guitar/guitarAppStyle.css' %}" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Guitar App - Visualiser</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="{% static 'guitar/guitarApp.js' %}"></script>
+
+
+
+    <link name="author" href="" />
+    <meta name="description" content="Guitar tab visualizer">
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+	<!-- CSS start here -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" media="screen">
+	<!--<link rel="stylesheet" type="text/css" href="{% static 'guitar/css/appstyle.css' %}" />-->
+	<!--<link rel="stylesheet" type="text/css" href="{% static 'guitar/css/font-awesome.css' %}">-->
+	<!--<link rel="stylesheet" type="text/css" href="{% static 'guitar/css/animate.css' %}" />-->
+	<!-- CSS end here -->
+	<!-- Google fonts start here -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+	<!-- Google fonts end here -->
+
+</head>
+<body>
+
+<div class="navbar">
+
+
+</div>
+
+
+
+<section class="container-fluid">
+    <form action="">
+      <fieldset class="tab">
+          <label for="amount">BPM:</label>
+          <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        <div class="pull-right" id="bpmslider"></div>
+        <legend class="tablegend"> {{form.songname}} </legend>
+          <input class="play" type="button" value="Play">
+        <input class="pause" type="button" value="Pause">
+        <input class="stop" type="button" value="Stop">
+        <input class="getsize" type="button" value="Get window size">
+        <input class="setMarker" type="button" value="Set marker">
+        <input class="playMarker" type="button" value="Repeat marked segment">
+        <input class="mute" type="button" value="mute">
+          <br>
+        <textarea readonly name="tabdata" id="tabdata" rows="10" cols="50" wrap="off" > {{ form.tab }} </textarea>
+        <br>
+
+      </fieldset>
+    </form>
+</section>
+
+<div id="line"></div>
+<!--characters are 6.5px apart-->
+
+<div id = "fretboard">
+  <img id = "fretboardimg" src="{% static 'guitar/images/blankfretboard.png' %}">
+
+  <img id = "str1" src = "{% static 'guitar/images/reddot.png' %}">
+  <img id = "str2" src = "{% static 'guitar/images/reddot.png' %}">
+  <img id = "str3" src = "{% static 'guitar/images/reddot.png' %}">
+  <img id = "str4" src = "{% static 'guitar/images/reddot.png' %}">
+  <img id = "str5" src = "{% static 'guitar/images/reddot.png' %}">
+  <img id = "str6" src = "{% static 'guitar/images/reddot.png' %}">
+</div>
+
+</body>
