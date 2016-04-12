@@ -22,7 +22,6 @@
     }
   </style>
 </head>
-<body>
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -56,6 +55,7 @@
 <!--characters are 6.5px apart-->
 <div id="sline"></div>
 <div id="eline"></div>
+<div id="capoline"></div>
 
 <div class="jumbotron">
   <div class="container text-center">
@@ -63,6 +63,27 @@
       <fieldset class="tab">
 
         <div class="container">
+
+          <label class="pull-left">Capo:</label>
+
+          <!-- Capo box Start -->
+          <select class="pull-left" style="margin-left:5px" id="capo">
+            <option value="0">None</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+          </select>
+          <!-- Capo box End -->
+
           <div class="slide pull-right" id="bpmslider"></div>
           <input class="pull-right" type="text" id="bpmamount" readonly style="border:0; background:#eee; color:#f6931f; font-weight:bold;">
           <label class="pull-right" for="bpmamount">BPM:</label>
@@ -132,13 +153,15 @@
   <div class="footer">
       <p class="footer-text">&copy; Pete Chitvicheankul. Supervised by Gyorgy Fazekas.</p>
   </div>
+
+
 </body>
 </html>
 
 
 <!-- test tab.
 e|--3--2--3--2-|-3-----3---------|--------3--2--3--2-|-3-----3--------|
-B|--------3----|----3-----1--(1)-|----0---------3----|----3-----1-----|
+B|--------3----|----3-----1------|----0---------3----|----3-----1-----|
 G|-----0-----0-|----0------------|-0---------0-----0-|----0-----------|
 D|--2----------|-----------------|--------2----------|----------------|
 A|-------------|-3---------------|-------------------|-3--------------|

@@ -45,9 +45,12 @@ def visualiser(request):
 
         if not tab_value == "":
             strings = tab_value.split()
+            maxStringlen = 0;
             for str in strings:
+                stringlen = len(str)
                 if len(str) > 1:
                     if str[0] == 'e' and (str[1] == '|' or str[1] == '-'):
+                        maxStringlen = len(str)
                         str = str[1:]
                         for s in str:
                             if s != '-':
@@ -57,6 +60,9 @@ def visualiser(request):
                         finalStrings[0] += str
                         continue
                     if str[0] == 'B' and (str[1] == '|' or str[1] == '-'):
+                        while stringlen > maxStringlen:
+                            str = str[:-1]
+                            stringlen = len(str)
                         str = str[1:]
                         for s in str:
                             if s != '-':
@@ -66,6 +72,9 @@ def visualiser(request):
                         finalStrings[1] += str
                         continue
                     if str[0] == 'G' and (str[1] == '|' or str[1] == '-'):
+                        while stringlen > maxStringlen:
+                            str = str[:-1]
+                            stringlen = len(str)
                         str = str[1:]
                         for s in str:
                             if s != '-':
@@ -75,6 +84,9 @@ def visualiser(request):
                         finalStrings[2] += str
                         continue
                     if str[0] == 'D' and (str[1] == '|' or str[1] == '-'):
+                        while stringlen > maxStringlen:
+                            str = str[:-1]
+                            stringlen = len(str)
                         str = str[1:]
                         for s in str:
                             if s != '-':
@@ -84,6 +96,9 @@ def visualiser(request):
                         finalStrings[3] += str
                         continue
                     if str[0] == 'A' and (str[1] == '|' or str[1] == '-'):
+                        while stringlen > maxStringlen:
+                            str = str[:-1]
+                            stringlen = len(str)
                         str = str[1:]
                         for s in str:
                             if s != '-':
@@ -93,6 +108,9 @@ def visualiser(request):
                         finalStrings[4] += str
                         continue
                     if str[0] == 'E' and (str[1] == '|' or str[1] == '-'):
+                        while stringlen > maxStringlen:
+                            str = str[:-1]
+                            stringlen = len(str)
                         str = str[1:]
                         for s in str:
                             if s != '-':
@@ -105,10 +123,11 @@ def visualiser(request):
         for s in finalStrings:
             finalTab += (s + "\n")
 
-        form = TabForm(request.POST)            #DO MORE DATA PREPROCESSING HERE.
+        form = TabForm(request.POST)
         if form.is_valid():
             form.songname = request.POST.get('songname')
             form.tab = finalTab
+            form.capo = request.POST.get('capo')
         request.POST = request.POST.copy()
         request.POST['tab'] = finalTab
 
@@ -116,81 +135,6 @@ def visualiser(request):
 
 def guitar(request):
     return render(request, 'guitar/app.html')
-
-def app(request):
-    if request.method == "POST":
-        tab_value = request.POST.get('tab')
-        finalStrings = ["e|", "B|", "G|", "D|", "A|", "E|"]
-
-        if not tab_value == "":
-            strings = tab_value.split()
-            for str in strings:
-                if str[0] == 'e' and (str[1] == '|' or str[1] == '-'):
-                    str = str[1:]
-                    for s in str:
-                        if s != '-':
-                            str = str[1:]
-                        else:
-                            break
-                    finalStrings[0] += str
-                    continue
-                if str[0] == 'B' and (str[1] == '|' or str[1] == '-'):
-                    str = str[1:]
-                    for s in str:
-                        if s != '-':
-                            str = str[1:]
-                        else:
-                            break
-                    finalStrings[1] += str
-                    continue
-                if str[0] == 'G' and (str[1] == '|' or str[1] == '-'):
-                    str = str[1:]
-                    for s in str:
-                        if s != '-':
-                            str = str[1:]
-                        else:
-                            break
-                    finalStrings[2] += str
-                    continue
-                if str[0] == 'D' and (str[1] == '|' or str[1] == '-'):
-                    str = str[1:]
-                    for s in str:
-                        if s != '-':
-                            str = str[1:]
-                        else:
-                            break
-                    finalStrings[3] += str
-                    continue
-                if str[0] == 'A' and (str[1] == '|' or str[1] == '-'):
-                    str = str[1:]
-                    for s in str:
-                        if s != '-':
-                            str = str[1:]
-                        else:
-                            break
-                    finalStrings[4] += str
-                    continue
-                if str[0] == 'E' and (str[1] == '|' or str[1] == '-'):
-                    str = str[1:]
-                    for s in str:
-                        if s != '-':
-                            str = str[1:]
-                        else:
-                            break
-                    finalStrings[5] += str
-                    continue
-        finalTab = ""
-        for s in finalStrings:
-            finalTab += (s + "\n")
-
-        form = TabForm(request.POST)            #DO MORE DATA PREPROCESSING HERE.
-        if form.is_valid():
-            form.songname = request.POST.get('songname')
-            form.tab = finalTab
-        request.POST = request.POST.copy()
-        request.POST['tab'] = finalTab
-
-    return render(request, 'guitar/app.html', {'form' : request.POST})
 
 def achords(request):
     return render(request, 'guitar/achords.html')

@@ -275,6 +275,14 @@ footer a:hover {
     margin-left: 5px;
 }
 
+#capoline{
+    position: absolute;
+    height:208px;
+    width:15px;
+    background:black;
+    top:59%;
+    left:-20px;
+}
 
 
 

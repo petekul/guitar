@@ -15,7 +15,7 @@ var markerFlag = false; muted = false; markersSet = false;
 
 /*
 BOOTSTRAP BOOTSTRAP
-http://goo.gl/forms/o9TW6tSlNn
+http://goo.gl/forms/R1NG41v16t
 */
 
 
@@ -178,6 +178,7 @@ var main = function(){
     hideAllNodes();
     hideMarkers();
     calculateDotSize();
+    alignCapo();
 
     $('.play').click(function(){
         if(markerFlag){
@@ -319,6 +320,10 @@ var main = function(){
        }
     });
 
+    $( "#capo" ).change(function() {
+      alignCapo();
+    });
+
     $('.mute').click(function(){
 
         if(muted){
@@ -345,7 +350,6 @@ var main = function(){
             }
         }
     })
-
 }
 
     function playTab(strings, p){
@@ -364,6 +368,8 @@ var main = function(){
                         string = replaceCharAt(string,p+1, "-");
                         strings[s-1] = string;
                     }
+
+                    note = parseFloat(note)  + parseFloat($('#capo').val());
                     var pos = notePositions[note];
 
                     $('#str' + s).css({
@@ -535,6 +541,29 @@ var main = function(){
         }
     }
 
+    function alignCapo(){
+
+        if($('#capo').val() == '0')
+            $('#capoline').hide();
+        else{
+            $('#capoline').show();
+            var leftpos = parseFloat(notePositions[$('#capo').val()]);
+            leftpos += 0.75;
+
+            $('#capoline').css({
+                "left" : leftpos + "%"
+            });
+
+            var originalWidth = 1280;
+            var currentWidth = $(window).width();
+            var originalCapoWidth = 10;
+            var widthRatio = originalCapoWidth/originalWidth;
+            $('#capoline').width(currentWidth*widthRatio);
+        }
+
+
+    }
+
     function placeMarker(str){
         $('#' + str + 'line').show();
         if(str == "s"){
@@ -598,6 +627,20 @@ var main = function(){
         if(index > str.length-1) return str;
         return str.substr(0,index) + chr + str.substr(index+1);
     }
+
+//dropdown list
+    $(".dropdown .title").click(function () {
+      $(this).parent().toggleClass("closed");
+    });
+
+    $(".dropdown li").click(function () {
+      $(this).parent().parent().toggleClass("closed").find(".title").text($(this).text());
+    });
+
+    $(document).on('click', '.dropdown-menu li a', function() {
+        $('#capo').val($(this).text());
+    });
+
 
 
 
