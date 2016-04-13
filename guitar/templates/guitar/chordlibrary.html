@@ -40,7 +40,7 @@
 
     <div class="navbar-inner">
         <div class="container-fluid">
-            <span id = "title">Guitar Tab Visualiser</span>
+            <span>Chord Library</span>
             <a href="#menu-toggle" class="btn glyphicon glyphicon-th-list pull-right" id="menu-toggle"></a>
         </div>
     </div>
@@ -51,14 +51,11 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
 
-                <li>
-                    <a class="glyphicon glyphicon-chevron-left " href="{% url 'guitar:index' %}"></a>
-                </li>
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Chord Library
-                    </a>
 
+                <li class="sidebar-brand">
+                    <a href="{% url 'guitar:index' %}" class="glyphicon glyphicon-chevron-left">
+                        Guitar Tab Visualiser
+                    </a>
                 </li>
 
                 <li>
