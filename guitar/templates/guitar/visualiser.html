@@ -92,13 +92,13 @@
 
         <div class="container text-left">
           <legend class="tablegend">  </legend>
-            <button class="play glyphicon glyphicon-play btn btn-primary" style="padding-left:30px; padding-right:30px;" type="button"></button>
-            <button class="pause glyphicon glyphicon-pause btn btn-secondary" style="margin-left:5px; margin-right:5px; padding-left:30px; padding-right:30px;" type="button" value="Pause"></button>
-            <button class="stop glyphicon glyphicon-stop btn btn-danger" style="padding-left:30px; padding-right:30px;" type="button" value="Stop"></button>
+            <button class="play glyphicon glyphicon-play btn btn-primary" data-toggle="tooltip" data-placement="top" title="Play" style="padding-left:30px; padding-right:30px;" type="button"></button>
+            <button class="pause glyphicon glyphicon-pause btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Pause" style="margin-left:5px; margin-right:5px; padding-left:30px; padding-right:30px;" type="button" value="Pause"></button>
+            <button class="stop glyphicon glyphicon-stop btn btn-danger"  data-toggle="tooltip" data-placement="top" title="Stop" style="padding-left:30px; padding-right:30px;" type="button" value="Stop"></button>
 
-            <button class="resetMarker glyphicon glyphicon-ban-circle btn btn-danger pull-right" style="padding-left:15px; padding-right:15px;" type="button"></button>
-            <button class="playMarker glyphicon glyphicon-repeat btn btn-warning pull-right" style="margin-left:5px; margin-right:5px; padding-left:30px; padding-right:30px;" type="button"></button>
-            <button class="setMarker glyphicon glyphicon-map-marker btn btn-success pull-right" style="padding-left:30px; padding-right:30px;" type="button"></button>
+            <button class="resetMarker glyphicon glyphicon-ban-circle btn btn-danger pull-right" data-toggle="tooltip" data-placement="top" title="Cancel markers" style="padding-left:15px; padding-right:15px;" type="button"></button>
+            <button class="playMarker glyphicon glyphicon-repeat btn btn-warning pull-right" data-toggle="tooltip" data-placement="top" title="Repeat between markers" style="margin-left:5px; margin-right:5px; padding-left:30px; padding-right:30px;" type="button"></button>
+            <button class="setMarker glyphicon glyphicon-map-marker btn btn-success pull-right" data-toggle="tooltip" data-placement="top" title="Set marker" style="padding-left:30px; padding-right:30px;" type="button"></button>
         </div>
           <br>
         <textarea readonly name="tabdata" id="tabdata" rows="10" cols="50" wrap="off" > {{ form.tab }} </textarea>

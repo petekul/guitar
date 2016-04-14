@@ -1,15 +1,15 @@
 var notePositions = ["1","4.8","11.8","18.2","24.3","30.1","35.55","40.7","45.55","50.1","54.4","58.5","62.3","65.9","69.4","72.65","75.7","78.6"];
 var keyposition = 0;
-var charposition=0;
+var totalMarkerShift=0;
 var sounds;
 var guitarsound;
 var speed = 250;
 var strings = [];
 var interval;
 var markerDistance = 0;
-var startMarker = [{key:"markerpos", value:-1},{key:"linepos", value:77},{key:"scrollpos", value:0}];
-var currentMarker = [{key:"markerpos", value:0},{key:"linepos", value:77},{key:"scrollpos", value:0}];
-var endMarker = [{key:"markerpos", value:-1},{key:"linepos", value:77},{key:"scrollpos", value:0}];
+var startMarker = [{key:"markerpos", value:-1},{key:"linepos", value:0},{key:"scrollpos", value:0},{key:"markedpos", value:0}];
+var currentMarker = [{key:"markerpos", value:0},{key:"linepos", value: 0},{key:"scrollpos", value:0}];
+var endMarker = [{key:"markerpos", value:-1},{key:"linepos", value:0},{key:"scrollpos", value:0},{key:"markedpos", value:0}];
 var tabMidpoint = 0;
 var markerFlag = false; muted = false; markersSet = false;
 
@@ -162,12 +162,14 @@ var main = function(){
         }).fail(function() {
         console.log("Failed to load Howler.js")
     });
+
     var maxLeftScroll = 0;
     var tabData = $('.tab').serializeArray()[0].value;
     tabData = tabData.trim();
     $('#tabdata').val(tabData); //remove extra whitespace
     strings = tabData.split("\n");
     setLineTop();
+    resizeLinePos();
     calculateTabMidpoint();
     getMaxTabScroll();
 
@@ -182,7 +184,6 @@ var main = function(){
 
     $('.play').click(function(){
         if(markerFlag){
-            charposition = currentMarker[0].value;
             resetLineToMarker(currentMarker);
             resetScrollToMarker(currentMarker);
         }
@@ -201,7 +202,7 @@ var main = function(){
 
     $('.pause').click(function(){
         clearInterval(interval);
-        console.log("current pos:" + currentMarker[0].value);
+        console.log("Paused at pos:" + currentMarker[0].value);
     });
 
     $('.stop').click(function(event){
@@ -209,16 +210,14 @@ var main = function(){
         clearInterval(interval);
         currentMarker[0].value=0;
         console.log("stopped. reset to:" + currentMarker[0].value);
-        $('#line').css({
-            "left" : 77 + "px"
-        });
-        currentMarker[1].value=77;
+
+        currentMarker[1].value=0;
         currentMarker[2].value=0;
         $('#tabdata').scrollLeft(0);
         hideAllNodes();
         hideMarkers();
         resetMarkers();
-        currentMarker = [{key:"markerpos", value:0},{key:"linepos", value:77},{key:"scrollpos", value:0}];
+        resizeLinePos();
         markersSet = false;
     });
 
@@ -232,14 +231,18 @@ var main = function(){
         console.log("marker set at position: " + currentMarker[0].value);
         if(startMarker[0].value < 0){
             startMarker[0].value = currentMarker[0].value;
-            startMarker[1].value = $('#line').css("left");
+//            startMarker[1].value = $('#line').css("left");
+            startMarker[1].value = currentMarker[1].value;
             startMarker[2].value = $('#tabdata').scrollLeft();
+            startMarker[3].value = currentMarker[1].value;
             placeMarker("s");
         }
         else if(startMarker[0].value != -1 && endMarker[0].value < 0){
             endMarker[0].value = currentMarker[0].value;
-            endMarker[1].value = $('#line').css("left");
+//            endMarker[1].value = $('#line').css("left");
+            endMarker[1].value = currentMarker[1].value;
             endMarker[2].value = $('#tabdata').scrollLeft();
+            endMarker[3].value = currentMarker[1].value;
             placeMarker("e");
             markersSet=true;
         }
@@ -247,17 +250,22 @@ var main = function(){
             startMarker[0].value = endMarker[0].value;
             startMarker[1].value = parseFloat(endMarker[1].value);
             startMarker[2].value = endMarker[2].value;
+            startMarker[3].value = currentMarker[1].value;
             placeMarker("s");
             endMarker[0].value = currentMarker[0].value;
-            endMarker[1].value = $('#line').css("left");
+//            endMarker[1].value = $('#line').css("left");
+            endMarker[1].value = currentMarker[1].value;
             endMarker[2].value = $('#tabdata').scrollLeft();
+            endMarker[3].value = currentMarker[1].value;
             placeMarker("e");
             markersSet=true;
         }
         else if(currentMarker[0].value < endMarker[0].value && currentMarker[0].value > startMarker[0].value){
             startMarker[0].value = currentMarker[0].value;
-            startMarker[1].value = $('#line').css("left");
+//            startMarker[1].value = $('#line').css("left");
+            startMarker[1].value = currentMarker[1].value;
             startMarker[2].value = $('#tabdata').scrollLeft();
+            startMarker[3].value = currentMarker[1].value;
             placeMarker("s");
         }
 
@@ -286,8 +294,7 @@ var main = function(){
             clearInterval(interval);
             interval = setInterval(function(){
                 playTab(strings, currentMarker[0].value);
-                console.log("playinterval on:" + currentMarker[0].value++);
-                currentMarker[1].value = $('#line').css("left");
+                currentMarker[0].value++;
                 currentMarker[2].value = $('#tabdata').scrollLeft();
                 $(window).resize(function(){
                    calculateDotSize();
@@ -350,7 +357,7 @@ var main = function(){
             }
         }
     })
-}
+
 
     function playTab(strings, p){
         var existsOnString =[];
@@ -392,6 +399,8 @@ var main = function(){
 
         if(markerFlag)
             shiftLine("forward");
+        else if(currentMarker[0].value == 0)
+            {} //do nothing
         else if(parseFloat($('#line').css("Left")) < tabMidpoint)
             shiftLine("forward");
         else if ($('#tabdata').scrollLeft() >= maxLeftScroll)
@@ -445,8 +454,10 @@ var main = function(){
     }
 
     function resetLineToMarker(marker){
-        $('#line').css({"left" : marker[1].value});
+        $('#line').css({"left" : ($('#tabdata').offset().left + 7) + marker[1].value});
+        currentMarker[1].value = marker[1].value;
     }
+
     function resetScrollToMarker(marker){
         $('#tabdata').scrollLeft(marker[2].value);
 
@@ -455,10 +466,16 @@ var main = function(){
     function shiftLine(direction){
         var charWidth = 9.6; // in px
         var newleft = 0;
-        if (direction == "backward")
-            newleft = parseFloat($('#line').css("left")) - charWidth;
-        else
-            newleft = parseFloat($('#line').css("left")) + charWidth;
+
+
+        if (direction == "backward"){
+            newleft = ($('#tabdata').offset().left + 7) + (currentMarker[1].value - charWidth);
+            currentMarker[1].value -= charWidth;
+        }
+        else{
+            newleft = ($('#tabdata').offset().left + 7) + (currentMarker[1].value + charWidth);
+            currentMarker[1].value += charWidth;
+        }
 
         if(newleft >= ($('#tabdata').width() + $('#tabdata').offset().left)){
             //stopShiftingLine
@@ -473,8 +490,11 @@ var main = function(){
     function shiftMarkerLine(){
         var charWidth = 9.6;
         var newsleft = 0; neweleft = 0;
-        newsleft = parseFloat($('#sline').css("left")) - charWidth;
-        neweleft = parseFloat($('#eline').css("left")) - charWidth;
+
+        totalMarkerShift += charWidth;
+        newsleft = ($('#tabdata').offset().left + 7) + (startMarker[3].value - charWidth);
+        neweleft = ($('#tabdata').offset().left + 7) + (endMarker[3].value - charWidth);
+
         if(newsleft <=  $('#tabdata').offset().left){
             //stopShiftingLine
         }
@@ -482,17 +502,16 @@ var main = function(){
             $('#sline').css({
                 "left" : newsleft + "px"
             });
-//            startMarker[1].value = newsleft;
+            startMarker[3].value -= charWidth;
         }
         if(neweleft <=  $('#tabdata').offset().left){
             //stopShiftingLine
-
         }
         else{
             $('#eline').css({
                 "left" : neweleft + "px"
             });
-//            endMarker[1].value = neweleft;
+            endMarker[3].value -= charWidth;
         }
 
 
@@ -525,6 +544,30 @@ var main = function(){
         $('#eline').css({
             "top" : $('#tabdata').offset().top - 5
         });
+    }
+    function resizeLinePos(){
+        $('#line').css({
+            "left" : ($('#tabdata').offset().left + 7) + currentMarker[1].value
+        });
+    }
+
+    function resizeMarkerPos(){
+        if(markerFlag){
+            $('#sline').css({
+                "left" : ($('#tabdata').offset().left + 7) + startMarker[1].value
+            });
+            $('#eline').css({
+                "left" : ($('#tabdata').offset().left + 7) + endMarker[1].value
+            });
+        }
+        else{
+            $('#sline').css({
+                "left" : ($('#tabdata').offset().left + 7) + startMarker[3].value
+            });
+            $('#eline').css({
+                "left" : ($('#tabdata').offset().left + 7) + endMarker[3].value
+            });
+        }
     }
 
     function calculateDotSize(){
@@ -567,18 +610,18 @@ var main = function(){
     function placeMarker(str){
         $('#' + str + 'line').show();
         if(str == "s"){
-            $('#sline').css({"left":startMarker[1].value});
+            $('#sline').css({"left": ($('#tabdata').offset().left + 7) + startMarker[1].value});
         }
         if(str == "e"){
-            $('#eline').css({"left":endMarker[1].value});
+            $('#eline').css({"left": ($('#tabdata').offset().left + 7) + endMarker[1].value});
         }
     }
 
     function resetMarkers(){
         $('#sline').css({"left":0});
         $('#eline').css({"left":0});
-        startMarker = [{key:"markerpos", value:-1},{key:"linepos", value:77},{key:"scrollpos", value:0}];
-        endMarker = [{key:"markerpos", value:-1},{key:"linepos", value:77},{key:"scrollpos", value:0}];
+        startMarker = [{key:"markerpos", value:-1},{key:"linepos", value:0},{key:"scrollpos", value:0},{key:"markedpos", value:0}];
+        endMarker = [{key:"markerpos", value:-1},{key:"linepos", value:0},{key:"scrollpos", value:0},{key:"markedpos", value:0}];
         markersSet = false;
         markerFlag = false;
     }
@@ -679,7 +722,6 @@ $(function() {
             }
             else{
                 if(markerFlag){
-                    charposition = currentMarker[0].value;
                     resetLineToMarker(currentMarker);
                     resetScrollToMarker(currentMarker);
                 }
@@ -707,18 +749,27 @@ $(function() {
       max: 100,
       slide: function( event, ui ) {
         $( "#volamount" ).val( ui.value );
-
-        var volume = ui.value/100; // calculate milliseconds from BPM.
+        var volume = ui.value/100; //Howler volume works on scale 0 - 1.0
         Howler.volume(volume);
       }
     });
     $( "#volamount" ).val($( "#volslider" ).slider( "value" ) );
 });
 
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+
 $(window).resize(function(){
         calculateDotSize();
         calculateTabMidpoint();
+        setLineTop();
+        resizeMarkerPos();
+        resizeLinePos();
 });
+
+
+}
 
 $(document).ready(main);
 
@@ -745,8 +796,6 @@ what can improve this specific section
 
 things i learnt section
 
-
-internal variable
 
 
 VIVA
