@@ -246,7 +246,7 @@ footer a:hover {
 
 #tabdata{
     font-family: monospace;
-
+    resize: none;
     width:100%;
     height:150px;
 }

@@ -27,7 +27,16 @@ from .forms import TabForm
 #         return HttpResponseRedirect(reverse('guitar:results', args=(q.id,)))
 
 def index(request):
+    ''' hello
+
+    this does this.
+    
+    input / output
+
+    '''
     return render(request, 'guitar/index.html')
+
+
 
 def chords(request):
     return render(request, 'guitar/chordlibrary.html')

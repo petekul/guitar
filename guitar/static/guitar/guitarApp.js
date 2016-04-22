@@ -344,19 +344,19 @@ var main = function(){
         $( "#volslider" ).slider( "value" ) = 0;
     });
 
-    //keypress function to iterate through tab
-    $(window).off().on('keydown',function(e){
-        if(e.which == 39){
-            keyposition++;
-            keypositionNode(strings)
-        }
-        if(e.which == 37){
-            if(keyposition>=0){
-                keyposition--;
-                keypositionNode(strings)
-            }
-        }
-    })
+    //keypress function to iterate through tab  OBSOLETE.
+//    $(window).off().on('keydown',function(e){
+//        if(e.which == 39){
+//            keyposition++;
+//            keypositionNode(strings)
+//        }
+//        if(e.which == 37){
+//            if(keyposition>=0){
+//                keyposition--;
+//                keypositionNode(strings)
+//            }
+//        }
+//    })
 
 
     function playTab(strings, p){
@@ -418,36 +418,37 @@ var main = function(){
         }
     }
 
-    function keypositionNode(strings){
-        var existsOnString =[];
-        for(var s=1; s <= strings.length; s++){
-            var string = strings[s-1];
-            var note = string.charAt(keyposition);
-            if(note != '-' && note != '|' && !isNaN(note) && note != ""){
-                if(isCharInt(nextChar)){
-                    note = note + nextChar;
-                    string = replaceCharAt(string,p+1, "-");
-                    strings[s-1] = string;
-                }
-                var pos = notePositions[note];
-                if(pos != 0){
-                    $('#str' + s).css({
-                        "left" : pos + "%"
-                    });
-                    $('#str' + s).show("");
-                }
-                var soundSprite = "s" + s + "n" + note;
-                playSound(soundSprite);
-                existsOnString.push(s);
-                }
-        }
-        if(existsOnString.length == 1){
-            hideAllNodesExcept(existsOnString);
-        }
-        else if (existsOnString.length > 1){
-            hideAllNodesExceptMultiple(existsOnString);
-        }
-    }
+//      OBSOLETE
+//    function keypositionNode(strings){
+//        var existsOnString =[];
+//        for(var s=1; s <= strings.length; s++){
+//            var string = strings[s-1];
+//            var note = string.charAt(keyposition);
+//            if(note != '-' && note != '|' && !isNaN(note) && note != ""){
+//                if(isCharInt(nextChar)){
+//                    note = note + nextChar;
+//                    string = replaceCharAt(string,p+1, "-");
+//                    strings[s-1] = string;
+//                }
+//                var pos = notePositions[note];
+//                if(pos != 0){
+//                    $('#str' + s).css({
+//                        "left" : pos + "%"
+//                    });
+//                    $('#str' + s).show("");
+//                }
+//                var soundSprite = "s" + s + "n" + note;
+//                playSound(soundSprite);
+//                existsOnString.push(s);
+//                }
+//        }
+//        if(existsOnString.length == 1){
+//            hideAllNodesExcept(existsOnString);
+//        }
+//        else if (existsOnString.length > 1){
+//            hideAllNodesExceptMultiple(existsOnString);
+//        }
+//    }
 
     function playSound(soundSprite){
         guitarsound.play(soundSprite);
@@ -603,7 +604,6 @@ var main = function(){
             var widthRatio = originalCapoWidth/originalWidth;
             $('#capoline').width(currentWidth*widthRatio);
         }
-
 
     }
 
